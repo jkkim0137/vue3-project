@@ -2,8 +2,8 @@
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">Dashboad</RouterLink>
+        <RouterLink to="/about">Grid</RouterLink>
       </nav>
     </div>
   </header>
