@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/grid',
       name: 'grid',
-      component: () => import('../views/GridView.vue')
+      component: () => import('../views/Grid/GridView.vue')
     }
   ]
 })
