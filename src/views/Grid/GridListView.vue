@@ -1,6 +1,12 @@
 <template>
   <!-- {{ listData.data }} -->
-  <el-table :data="props.listData.data" style="width: 100%" @cell-click="detailViewHandler">
+  <el-table
+    :data="props.listData.data"
+    style="width: 100%"
+    @cell-click="detailViewHandler"
+    @select="selectHandler"
+  >
+    <el-table-column type="selection" width="55" />
     <el-table-column prop="name" label="이름" width="180" />
     <el-table-column prop="age" label="나이" width="180" />
     <el-table-column prop="gender" label="성별" />
@@ -16,11 +22,14 @@ const props = defineProps({
     default: () => []
   }
 })
-const emit = defineEmits('detailViewHandler')
+const emit = defineEmits('detailViewHandler, selectHandler')
 
 const detailViewHandler = (data) => {
   emit('detailViewHandler', data)
-  console.log('클릭')
+}
+
+const selectHandler = (selection, rows) => {
+  emit('selectHandler', selection, rows)
 }
 </script>
 <style></style>

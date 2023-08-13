@@ -24,9 +24,14 @@
       <el-input v-model="userData.email" :disabled="isReadOnly" />
     </el-form-item>
     <el-form-item>
-      <el-button @click="goToList" v-if="isReadOnly">취소</el-button>
-      <el-button type="primary" @click="onEdit" v-if="isReadOnly">수정</el-button>
-      <el-button type="primary" @click="() => onSubmit(userData.id)" v-else>저장</el-button>
+      <div v-if="isReadOnly">
+        <el-button @click="goToList">취소</el-button>
+        <el-button type="primary" @click="onEdit">수정</el-button>
+      </div>
+      <div v-else>
+        <el-button @click="goToList">취소</el-button>
+        <el-button type="primary" @click="() => onSubmit(userData.id)">저장</el-button>
+      </div>
       {{ userData.id }}
     </el-form-item>
   </el-form>
