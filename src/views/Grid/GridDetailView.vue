@@ -1,12 +1,4 @@
 <template>
-  <br />
-  <br />
-  {{ mode }}
-  <br />
-  {{ userData.name }}
-  {{ userData.age }}
-  {{ userData.gender }}
-  {{ userData.email }}
   <el-form :model="userData" label-width="120px">
     <el-form-item label="이름">
       <el-input v-model="userData.name" :disabled="isReadOnly" />
@@ -32,7 +24,6 @@
         <el-button @click="goToList">취소</el-button>
         <el-button type="primary" @click="() => onSubmit(userData.id)">저장</el-button>
       </div>
-      {{ userData.id }}
     </el-form-item>
   </el-form>
 </template>
