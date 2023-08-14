@@ -12,15 +12,6 @@
         :listData="listData"
         :itemPerPage="10"
       ></GridListView>
-      <!-- {{ listData.data.length }} -->
-      {{ totalItems }}
-      <!-- <div class="pagination-wrap">
-        <el-pagination
-          layout="prev, pager, next"
-          :total="totalItems"
-          @current-change="handleCurrentChange"
-        />
-      </div> -->
     </div>
     <!-- //list -->
 
@@ -44,12 +35,7 @@ const listData = ref([])
 const detailData = ref({})
 const mode = ref('list')
 const selectedItems = ref([])
-const pageSize3 = ref(3)
-const totalItems = ref(0)
 
-const handleCurrentChange = (val) => {
-  console.log(`current page: ${val}`)
-}
 const isMode = (modeName) => {
   return mode.value === modeName
 }
@@ -85,7 +71,6 @@ const getAllList = () => {
   request.then((response) => {
     if (response.status === 200) {
       listData.value = response.data
-      totalItems.value = listData.value.data.length
     }
   })
 }
@@ -94,6 +79,7 @@ const selectHandler = (selection, rows) => {
   console.log('선택된 row')
   selectedItems.value = selection
 }
+
 // 삭제
 const onDelete = async () => {
   for (const item of selectedItems.value) {
