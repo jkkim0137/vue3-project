@@ -1,12 +1,12 @@
 <template>
-  <el-form label-width="120px" @submit="onSubmitForm">
+  <el-form label-width="120px">
     <el-form-item label="이름">
       <el-input v-model="userDataSchema.name.val" :disabled="isReadOnly" />
-      <div v-if="!userDataSchema.name.val" style="color: red">* 이름은 필수 항목입니다.</div>
+      <div v-if="!isReadOnly" style="color: red">* 이름은 필수 항목입니다.</div>
     </el-form-item>
     <el-form-item label="나이">
       <el-input v-model="userDataSchema.age.val" :disabled="isReadOnly" />
-      <div v-if="!userDataSchema.age.val" style="color: red">* 나이는 필수 항목입니다.</div>
+      <div v-if="!isReadOnly" style="color: red">* 나이는 필수 항목입니다.</div>
     </el-form-item>
     <el-form-item label="성별">
       <el-select
@@ -17,11 +17,11 @@
         <el-option label="남" value="male" />
         <el-option label="여" value="female" />
       </el-select>
-      <div v-if="!userDataSchema.gender.val" style="color: red">* 성별은 필수 항목입니다.</div>
+      <div v-if="!isReadOnly" style="color: red">* 성별은 필수 항목입니다.</div>
     </el-form-item>
     <el-form-item label="이메일">
       <el-input v-model="userDataSchema.email.val" :disabled="isReadOnly" />
-      <!-- <div v-if="!userDataSchema.email.val" style="color: red">* 이메일은 필수 항목입니다.</div> -->
+      <!-- <div v-if="!isReadOnly" style="color: red">* 이메일은 필수 항목입니다.</div> -->
     </el-form-item>
     <el-form-item>
       <div v-if="isReadOnly">

@@ -103,9 +103,4 @@ const onDelete = async () => {
 .right {
   text-align: right;
 }
-.pagination-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
 </style>

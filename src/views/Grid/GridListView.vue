@@ -16,13 +16,15 @@
       </template>
     </el-table-column>
   </el-table>
-  총 {{ tableListData?.length }} 개
-  <div class="pagination-wrap">
-    <el-pagination
-      layout="prev, pager, next"
-      :total="tableListData?.length"
-      @current-change="handleCurrentChange"
-    />
+  <div class="flex relative items-center m-1.5">
+    <div class="absolute left-0 text-basic">총 {{ tableListData?.length }} 개</div>
+    <div class="pagination-wrap flex-1">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="tableListData?.length"
+        @current-change="handleCurrentChange"
+      />
+    </div>
   </div>
 </template>
 <script setup>
@@ -83,5 +85,9 @@ const selectHandler = (selection, rows) => {
 table .el-table__row:hover .cell {
   text-decoration: underline;
   cursor: pointer;
+}
+.pagination-wrap {
+  display: flex;
+  justify-content: center;
 }
 </style>
