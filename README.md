@@ -18,7 +18,6 @@ npm install
 npm run dev
 ```
 
-### Compile and Minify for Production
 
 #### 프론트엔드
 1. vue3 환경구성(vite + pinia)
