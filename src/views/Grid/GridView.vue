@@ -46,6 +46,8 @@ const setMode = (newMode) => {
 
 const detailViewHandler = (data) => {
   setMode('detail')
+  console.log(data)
+  console.log(detailData.value)
   detailData.value = data
   console.log(data.id)
 }

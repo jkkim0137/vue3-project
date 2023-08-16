@@ -2,8 +2,8 @@
   <header>
     <div class="wrapper">
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-        <!-- <el-menu-item index="1"><RouterLink to="/">Dashboad</RouterLink></el-menu-item> -->
         <el-menu-item index="1"><RouterLink to="/grid">Grid</RouterLink></el-menu-item>
+        <el-menu-item index="2"><RouterLink to="/">Dashboad</RouterLink></el-menu-item>
       </el-menu>
     </div>
   </header>

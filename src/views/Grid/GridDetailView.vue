@@ -69,10 +69,10 @@ const userData = ref({
 })
 
 const userDataSchema = ref({
-  name: { val: '', require: true, type: String },
-  age: { val: '', require: true, type: Number },
-  gender: { val: '', require: true, type: String },
-  email: { val: '', require: false, type: String }
+  name: { val: props.detailData.name, require: true, type: String },
+  age: { val: props.detailData.age, require: true, type: Number },
+  gender: { val: props.detailData.gender, require: true, type: String },
+  email: { val: props.detailData.email, require: false, type: String }
 })
 
 const isReadOnly = ref(true)
@@ -93,7 +93,7 @@ const onSubmit = (id) => {
     if (testData.require && !testData.val) {
       console.log('비어있다!!', testData)
       isValidData.isValid = false
-      isValidData.message = '비어있다. 무엇이 ?? 바로! ' + key
+      // isValidData.message = '비어있다. 무엇이 ?? 바로! ' + key
     }
     // console.log(key, userDataSchema.value[key])
   }
