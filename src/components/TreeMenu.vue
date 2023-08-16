@@ -1,7 +1,10 @@
 <template>
   <div>
-    <a href="#" @click="(e) => addMenuItemHandler(e)">메뉴추가</a>
-    <div class="menu_wrap">
+    <el-button type="info" plain @click="(e) => addMenuItemHandler(e)" class="mt-6"
+      >메뉴추가</el-button
+    >
+    <!-- <a href="#" >메뉴추가</a> -->
+    <div class="menu_wrap mt-6">
       <ul class="menu_list">
         <TreeMenuItem
           v-for="(menuData, index) in menuStore.menuDataList"

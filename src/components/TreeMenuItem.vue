@@ -1,28 +1,44 @@
 <template>
-  <li :class="menuData.isOpen ? 'active' : ''">
+  <li :class="props.menuData.isOpen ? 'active' : ''">
     <div
-      @mouseenter="(e) => mouseEnterMenuItem(e, index, menuData)"
-      @mouseleave="(e) => mouseLeaveMenuItem(e, index, menuData)"
+      @mouseenter="(e) => mouseEnterMenuItem(e, index, props.menuData)"
+      @mouseleave="(e) => mouseLeaveMenuItem(e, index, props.menuData)"
     >
-      <button type="button" @click="(e) => clickMenuItemHandler(e, index, menuData)">
-        {{ menuData.label }}
-        - ID {{ menuData.id }}
+      <button type="button" @click="(e) => clickMenuItemHandler(e, index, props.menuData)">
+        <span class="text-blue">{{ props.menuData.label }}</span>
+        <span class="text-xs text-gray-500 ml-2">(ID:{{ props.menuData.id }})</span>
       </button>
-      <div v-if="menuData.showHoverButton" style="display: inline-block">
-        <button @click="(e) => modifyMenuItemHandler(e, index, menuData)">수정</button>
-        <button @click="(e) => deleteMenuItemHandler(e, index, menuData)">삭제</button>
-        <button @click="(e) => addChildMenuItemHandler(e, index, menuData, menuData.id)">
+      <div
+        v-if="props.menuData.showHoverButton"
+        style="display: inline-block"
+        class="text-xs text-blue-500"
+      >
+        <button @click="(e) => modifyMenuItemHandler(e, index, props.menuData)" class="ml-2">
+          수정
+        </button>
+        <button
+          @click="(e) => addChildMenuItemHandler(e, index, props.menuData, props.menuData.id)"
+          class="ml-2"
+        >
           추가
         </button>
+        <button @click="(e) => deleteMenuItemHandler(e, index, props.menuData)" class="ml-2">
+          삭제
+        </button>
       </div>
-      <div v-if="menuData.modify" class="modify_box">
-        <input type="text" v-model="menuData.label" />
-        <button @click="(e) => updateMenuItemHandler(e, index, menuData)">확인</button>
+      <div v-if="props.menuData.modify" class="modify_box">
+        <el-input v-model="props.menuData.label" class="w-20" size="small" />
+        <button
+          @click="(e) => updateMenuItemHandler(e, index, props.menuData)"
+          class="text-xs text-blue-500"
+        >
+          확인
+        </button>
       </div>
     </div>
     <ul>
       <TreeMenuItem
-        v-for="(item, index) in menuData.children"
+        v-for="(item, index) in props.menuData.children"
         :menuData="item"
         :id="item.id"
         :index="index"
@@ -74,11 +90,6 @@ const addChildMenuItemHandler = inject('addChildMenuItemHandler')
 </script>
 
 <style scoped>
-button {
-  border: 0;
-  background-color: #fff;
-  cursor: pointer;
-}
 ul {
   padding: 10px;
   margin: 0;
@@ -94,9 +105,9 @@ li.active > ul {
   display: block;
 }
 .modify_box {
-  display: block;
+  /* display: block; */
 }
 input {
-  width: 60%;
+  /* width: 60%; */
 }
 </style>
