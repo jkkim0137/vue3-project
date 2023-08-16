@@ -103,10 +103,11 @@ export const useMenuStore = defineStore('menu', () => {
     })
     .then((res) => {
       menuDataList.value = res.data
+      console.log(menuDataList.value)
     })
   const addNewObject = {
     id: null,
-    label: '새로 추가한 메뉴',
+    label: menuDataList.value.modify === true ? menuDataList.value.label : '새로 추가한 메뉴',
     depth: null,
     isOpen: false,
     modify: false
