@@ -26,13 +26,13 @@
           삭제
         </button>
       </div>
-      <div v-if="props.menuData.modify" class="modify_box">
+      <div v-if="props.menuData.modify" class="modify_box flex">
         <el-input v-model="props.menuData.label" class="w-20" size="small" />
         <button
           @click="(e) => updateMenuItemHandler(e, index, props.menuData)"
-          class="text-xs text-blue-500"
+          class="text-xs text-blue-500 whitespace-nowrap ml-2"
         >
-          확인
+          <span>확인</span>
         </button>
       </div>
     </div>
@@ -105,6 +105,7 @@ li.active > ul {
   display: block;
 }
 .modify_box {
+  width: 70%;
   /* display: block; */
 }
 input {
