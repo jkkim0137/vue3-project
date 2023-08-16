@@ -25,8 +25,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import GridListView from './GridListView.vue'
-import GridDetailView from './GridDetailView.vue'
+import GridListView from './Grid/GridListView.vue'
+import GridDetailView from './Grid/GridDetailView.vue'
 
 onMounted(() => {
   getAllList()
