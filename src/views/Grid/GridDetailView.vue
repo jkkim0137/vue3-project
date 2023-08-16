@@ -93,7 +93,7 @@ const onSubmit = (id) => {
     if (testData.require && !testData.val) {
       console.log('비어있다!!', testData)
       isValidData.isValid = false
-      // isValidData.message = '비어있다. 무엇이 ?? 바로! ' + key
+      isValidData.message = '필수 항목이 입력되지 않았습니다.'
     }
     // console.log(key, userDataSchema.value[key])
   }
