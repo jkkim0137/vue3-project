@@ -1,4 +1,6 @@
 <template>
-  <main>준비중 입니다.</main>
+  <TreeMenu />
 </template>
-<script setup></script>
+<script setup>
+import TreeMenu from '../components/TreeMenu.vue'
+</script>
