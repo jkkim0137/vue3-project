@@ -1,10 +1,10 @@
 <template>
   <div class="dashboard-wrap bg-gray-100">
-    <button @click="getData">get</button>
-    <div class="flex flex-col gap-4">
+    <el-button @click="getData">get Data</el-button>
+    <div class="flex flex-col gap-4 mt-2">
       <div class="flex flex-row gap-4">
-        <el-card class="flex justify-center box-card h-1000 w-full" style="height: 1200px">
-          <DoughnutChart :chartData="makeupDataRef" />
+        <el-card class="flex justify-center box-card h-500 w-screen" style="">
+          <BarChart :chartData="makeupDataRef" class="chart-container" />
 
           <div class="right">total : {{ uniqueBrandList.length }}</div>
         </el-card>
@@ -20,7 +20,7 @@
 </template>
 <script setup>
 import { ref, watchEffect, onMounted } from 'vue'
-import { DoughnutChart, LineChart, BubbleChart } from 'vue-chart-3'
+import { DoughnutChart, LineChart, BarChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import axios from 'axios'
 Chart.register(...registerables)
@@ -152,8 +152,14 @@ const getData = () => {
             '#FF7799'
           ]
         }
-      ]
+      ],
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false // 이 옵션을 추가하여 너비를 100%로 설정
+        // ...
+      }
     }
+    console.log(makeupDataRef.value.chartOptions.maintainAspectRatio)
   })
 }
 </script>
@@ -166,5 +172,11 @@ const getData = () => {
 #doughnut-chart {
   width: 100% !important;
   height: 100% !important;
+}
+.chart-container {
+  width: 100% !important;
+}
+.el-card__body {
+  width: 100%;
 }
 </style>
