@@ -23,6 +23,14 @@
       <el-input v-model="userDataSchema.email.val" :disabled="isReadOnly" />
       <!-- <div v-if="!isReadOnly" style="color: red">* 이메일은 필수 항목입니다.</div> -->
     </el-form-item>
+    <el-form-item label="파티">
+      <el-col :span="22">
+        <el-input v-model="userDataSchema.party.val" :disabled="isReadOnly" />
+      </el-col>
+      <el-col :span="2">
+        <el-button size="default" class="ml-2" @click="addPartyHandler()">추가</el-button>
+      </el-col>
+    </el-form-item>
     <el-form-item>
       <div v-if="isReadOnly">
         <el-button @click="goToList">취소</el-button>
@@ -34,11 +42,13 @@
       </div>
     </el-form-item>
   </el-form>
+  <!-- 파티추가 팝업 -->
+  <ModalPopup v-if="isModalOpen" :title="`파티원 추가`" :listData="listData" />
+  <!-- //파티추가 팝업 -->
 </template>
 <script setup>
 import { ref, computed, watch, defineProps, defineEmits } from 'vue'
-// import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate'
-// import { required, email } from '@vee-validate/rules'
+import ModalPopup from '../../components/ModalPopup.vue'
 import axios from 'axios'
 
 const props = defineProps({
@@ -56,6 +66,10 @@ const props = defineProps({
         email: ''
       }
     }
+  },
+  listData: {
+    type: Array,
+    default: () => []
   }
 })
 
@@ -72,10 +86,12 @@ const userDataSchema = ref({
   name: { val: props.detailData.name, require: true, type: String },
   age: { val: props.detailData.age, require: true, type: Number },
   gender: { val: props.detailData.gender, require: true, type: String },
-  email: { val: props.detailData.email, require: false, type: String }
+  email: { val: props.detailData.email, require: false, type: String },
+  party: { val: props.detailData.party, require: false, type: Array }
 })
 
 const isReadOnly = ref(true)
+const isModalOpen = ref(false)
 
 // 생성
 const onSubmit = (id) => {
@@ -144,5 +160,11 @@ watch(() => {
     isReadOnly.value = true
   }
 })
+
+// 파티원 추가
+const addPartyHandler = () => {
+  console.log('파티원 추가')
+  isModalOpen.value = !isModalOpen.value
+}
 </script>
 <style></style>

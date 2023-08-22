@@ -18,7 +18,12 @@
     <!-- detail -->
     <div v-else>
       <!-- <el-button plian @click="goToList">목록으로</el-button> -->
-      <GridDetailView :detailData="detailData" :mode="mode" @goToList="goToList"></GridDetailView>
+      <GridDetailView
+        :listData="listData"
+        :detailData="detailData"
+        :mode="mode"
+        @goToList="goToList"
+      ></GridDetailView>
     </div>
   </div>
 </template>
