@@ -23,9 +23,15 @@
       <el-input v-model="userDataSchema.email.val" :disabled="isReadOnly" />
       <!-- <div v-if="!isReadOnly" style="color: red">* 이메일은 필수 항목입니다.</div> -->
     </el-form-item>
-    <el-form-item label="파티">
-      <el-col :span="22">
+    <el-form-item label="파티원 ">
+      <el-col :span="22" class="position">
         <el-input v-model="userDataSchema.party.val" :disabled="isReadOnly" />
+        {{ selectedListData }}
+        <div class="absolute top-0 left-3">
+          <span v-for="item in selectedListData" :key="item.key" style="color: blue">
+            {{ item.name }} <el-button text small round class="el-button plain--right">X</el-button>
+          </span>
+        </div>
       </el-col>
       <el-col :span="2">
         <el-button size="default" class="ml-2" @click="addPartyHandler()">추가</el-button>
@@ -43,7 +49,13 @@
     </el-form-item>
   </el-form>
   <!-- 파티추가 팝업 -->
-  <ModalPopup v-if="isModalOpen" :title="`파티원 추가`" :listData="listData" />
+  <ModalPopup
+    v-if="isModalOpen"
+    :title="`파티원 추가`"
+    @addSelectedItems="handleAddSelectedItems"
+    @onCloseModal="onCloseModal"
+    :selectedListData="selectedListData"
+  />
   <!-- //파티추가 팝업 -->
 </template>
 <script setup>
@@ -92,7 +104,7 @@ const userDataSchema = ref({
 
 const isReadOnly = ref(true)
 const isModalOpen = ref(false)
-
+const selectedListData = ref([])
 // 생성
 const onSubmit = (id) => {
   console.log('submit!')
@@ -164,6 +176,22 @@ watch(() => {
 // 파티원 추가
 const addPartyHandler = () => {
   console.log('파티원 추가')
+  isModalOpen.value = !isModalOpen.value
+}
+
+const handleAddSelectedItems = (selectedList) => {
+  console.log('추가 하쟈고')
+  console.log(selectedList)
+  if (selectedList.length) {
+    isModalOpen.value = !isModalOpen.value
+    selectedListData.value = selectedList
+  } else {
+    alert('파티원을 선택해주세요.')
+  }
+}
+
+const onCloseModal = () => {
+  console.log('모달닫기')
   isModalOpen.value = !isModalOpen.value
 }
 </script>
