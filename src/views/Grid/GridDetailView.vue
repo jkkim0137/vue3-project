@@ -28,8 +28,11 @@
         <el-input v-model="userDataSchema.party.val" :disabled="isReadOnly" />
         {{ selectedListData }}
         <div class="absolute top-0 left-3">
-          <span v-for="item in selectedListData" :key="item.key" style="color: blue">
-            {{ item.name }} <el-button text small round class="el-button plain--right">X</el-button>
+          <span v-for="item in selectedListData" :key="item.id" style="color: blue">
+            {{ item.name }}
+            <el-button text small round class="el-button plain--right" @click="removeParty(item.id)"
+              >X</el-button
+            >
           </span>
         </div>
       </el-col>
@@ -193,6 +196,12 @@ const handleAddSelectedItems = (selectedList) => {
 const onCloseModal = () => {
   console.log('모달닫기')
   isModalOpen.value = !isModalOpen.value
+}
+
+const removeParty = (itemId) => {
+  console.log('삭제')
+  selectedListData.value = selectedListData.value.filter((item) => item.id !== itemId) // 아닌것을 담아냄
+  // .splice(id)
 }
 </script>
 <style></style>
