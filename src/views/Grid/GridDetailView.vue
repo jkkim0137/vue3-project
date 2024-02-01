@@ -25,30 +25,27 @@
     </el-form-item>
     <el-form-item label="파티원 ">
       <el-col :span="22" class="position">
-        <el-input :disabled="isReadOnly" /><br><br><br><br><br><br>
-        {{ userDataSchema.party.val }} <br><br>
-        <!-- {{ selectedListData }}<br><br> -->
-        <!-- {{ selectedListData.length }}<br><br> -->
-        <!-- {{ userDataSchema.party.length }}<br><br>
-      {{ userDataSchema.party.length }} -->
+        <el-input :disabled="isReadOnly" /><br><br>
+        <!-- {{ userDataSchema.party.val }} <br><br> -->
+     
         <div class="absolute top-0 left-3">
           <span v-for="item in userDataSchema.party.val" :key="item.id" style="color: blue">
             <!-- {{ item.name }} -->
-            여기:: {{ item.name }} - {{ item.id }}
-            <el-button text small round class="el-button plain--right" @click="removeParty(item.id)"
+            {{ item.name }} 
+            <el-button text small round class="el-button plain--right" @click="removeParty(item.id)" :disabled="isReadOnly"
               >X</el-button
             >
           </span>
         </div>
       </el-col>
       <el-col :span="2">
-        <el-button size="default" class="ml-2" @click="addPartyHandler()">추가</el-button>
+        <el-button size="default" class="ml-2" @click="addPartyHandler()" :disabled="isReadOnly">추가</el-button>
       </el-col>
     </el-form-item>
     <el-form-item>
       <div v-if="isReadOnly">
         <el-button @click="goToList">취소</el-button>
-        <el-button type="primary" @click="onSubmit(userData.id)">수정</el-button>
+        <el-button type="primary" @click="onEdit(userData.id)">수정</el-button>
       </div>
       <div v-else>
         <el-button @click="goToList">취소</el-button>
@@ -200,17 +197,13 @@ watch(() => {
 
 // 파티원 추가
 const addPartyHandler = () => {
-  console.log('파티원 추가')
   isModalOpen.value = !isModalOpen.value
 }
 
 const handleAddSelectedItems = (selectedList) => {
-  console.log('추가 하쟈고')
-  // console.log(selectedList)
   if (selectedList.length) {
     isModalOpen.value = !isModalOpen.value
     userDataSchema.value.party.val = selectedList
-    console.log(selectedListData.value)
   } else {
     alert('파티원을 선택해주세요.')
   }
@@ -223,10 +216,9 @@ const onCloseModal = () => {
 
 const removeParty = (itemId) => {
   console.log('삭제')
-  console.log(userDataSchema.value.party.val)
+  // console.log(userDataSchema.value.party.val)
   userDataSchema.value.party.val = userDataSchema.value.party.val.filter((item) => item.id !== itemId) // 아닌것을 담아냄
   // selectedListData.value = selectedListData.value.filter((item) => item.id !== itemId) // 아닌것을 담아냄
-  // .splice(id)
 }
 </script>
 <style></style>
