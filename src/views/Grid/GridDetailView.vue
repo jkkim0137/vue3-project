@@ -25,11 +25,16 @@
     </el-form-item>
     <el-form-item label="파티원 ">
       <el-col :span="22" class="position">
-        <el-input v-model="userDataSchema.party.val" :disabled="isReadOnly" />
-        {{ selectedListData }}
+        <el-input :disabled="isReadOnly" /><br><br><br><br><br><br>
+        {{ userDataSchema.party.val }} <br><br>
+        <!-- {{ selectedListData }}<br><br> -->
+        <!-- {{ selectedListData.length }}<br><br> -->
+        <!-- {{ userDataSchema.party.length }}<br><br>
+      {{ userDataSchema.party.length }} -->
         <div class="absolute top-0 left-3">
-          <span v-for="item in selectedListData" :key="item.id" style="color: blue">
-            {{ item.name }}
+          <span v-for="item in userDataSchema.party.val" :key="item.id" style="color: blue">
+            <!-- {{ item.name }} -->
+            여기:: {{ item.name }} - {{ item.id }}
             <el-button text small round class="el-button plain--right" @click="removeParty(item.id)"
               >X</el-button
             >
@@ -43,7 +48,7 @@
     <el-form-item>
       <div v-if="isReadOnly">
         <el-button @click="goToList">취소</el-button>
-        <el-button type="primary" @click="onEdit">수정</el-button>
+        <el-button type="primary" @click="onSubmit(userData.id)">수정</el-button>
       </div>
       <div v-else>
         <el-button @click="goToList">취소</el-button>
@@ -78,9 +83,14 @@ const props = defineProps({
         name: '',
         age: '',
         gender: '',
-        email: ''
+        email: '',
+        party:'',
       }
     }
+  },
+  selectedListData: {
+    type: Array,
+    default: () => []
   },
   listData: {
     type: Array,
@@ -94,25 +104,31 @@ const userData = ref({
   name: '',
   age: '',
   gender: '',
-  email: ''
+  email: '',
+  party:'',
 })
+const selectedListData = ref([])
 
 const userDataSchema = ref({
   name: { val: props.detailData.name, require: true, type: String },
   age: { val: props.detailData.age, require: true, type: Number },
   gender: { val: props.detailData.gender, require: true, type: String },
   email: { val: props.detailData.email, require: false, type: String },
-  party: { val: props.detailData.party, require: false, type: Array }
+  party: {val:  props.mode === 'create' ? '' : JSON.parse(props.detailData.party), require: false, type: String} 
 })
-
+// 추가를 누르면 selectedListData 고 상세에 들어왔을때 props.detailData.party 
+// console.log(JSON.parse(props.detailData.party))
 const isReadOnly = ref(true)
 const isModalOpen = ref(false)
-const selectedListData = ref([])
+
 // 생성
 const onSubmit = (id) => {
   console.log('submit!')
+  console.log('submit! selectedListData ::>> ', selectedListData.value)
+  // console.log('submit! userDataSchema ::>> ', userDataSchema.value)
+  // console.log('submit! userDataSchema ::>> ', userDataSchema.value.party.val)
 
-  console.log(userDataSchema.value)
+
   let isValidData = {
     isValid: true,
     message: ''
@@ -122,7 +138,7 @@ const onSubmit = (id) => {
     // require 가 true 인것만 검사
     const testData = userDataSchema.value[key]
     if (testData.require && !testData.val) {
-      console.log('비어있다!!', testData)
+      // console.log('비어있다!!', testData)
       isValidData.isValid = false
       isValidData.message = '필수 항목이 입력되지 않았습니다.'
     }
@@ -135,7 +151,8 @@ const onSubmit = (id) => {
     return
   } else {
     // axios\
-    console.log('이름 입력 후')
+    // console.log('이름 입력 후')
+
     const request = axios({
       method: props.mode === 'create' ? 'post' : 'put',
       url: props.mode === 'create' ? '/api/users' : `/api/users/${id}`,
@@ -143,14 +160,19 @@ const onSubmit = (id) => {
         name: userDataSchema.value.name.val,
         age: userDataSchema.value.age.val,
         gender: userDataSchema.value.gender.val,
-        email: userDataSchema.value.email.val
+        email: userDataSchema.value.email.val,
+        party: JSON.stringify(userDataSchema.value.party.val),
       }
     })
     request.then((response) => {
       if (response.status === 200) {
-        console.log('저장되었음')
+        // console.log('저장되었음')
         emit('goToList')
+        // console.log(response)
+        console.log('요청완료 파티는?', selectedListData.value)
       }
+    }).catch((error) => {
+      console.log('error ::>> ', error)
     })
   }
 }
@@ -184,10 +206,11 @@ const addPartyHandler = () => {
 
 const handleAddSelectedItems = (selectedList) => {
   console.log('추가 하쟈고')
-  console.log(selectedList)
+  // console.log(selectedList)
   if (selectedList.length) {
     isModalOpen.value = !isModalOpen.value
-    selectedListData.value = selectedList
+    userDataSchema.value.party.val = selectedList
+    console.log(selectedListData.value)
   } else {
     alert('파티원을 선택해주세요.')
   }
@@ -200,7 +223,9 @@ const onCloseModal = () => {
 
 const removeParty = (itemId) => {
   console.log('삭제')
-  selectedListData.value = selectedListData.value.filter((item) => item.id !== itemId) // 아닌것을 담아냄
+  console.log(userDataSchema.value.party.val)
+  userDataSchema.value.party.val = userDataSchema.value.party.val.filter((item) => item.id !== itemId) // 아닌것을 담아냄
+  // selectedListData.value = selectedListData.value.filter((item) => item.id !== itemId) // 아닌것을 담아냄
   // .splice(id)
 }
 </script>

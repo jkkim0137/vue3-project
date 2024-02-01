@@ -7,8 +7,8 @@
         {{ props.title }}
         {{ props.selectedListData }}
       </div>
-      <div class="modal-container">
-        <div class="modal-content">
+      <div class="modal-container ">
+        <div class="modal-content max-h-[700px] overflow-y-scroll">
           <el-table
             :data="userListData"
             style="width: 100%"
@@ -22,7 +22,7 @@
                   v-model="scope.row.checked"
                   label
                   size="large"
-                  @change="handleChecked"
+                  @change="(val, $e) => handleChecked(val, $e, scope.row)"
                 />
                 {{ scope.row.checked }}
               </template>
@@ -41,7 +41,7 @@
       </div>
       <div class="modal-footer">
         <el-button @click="() => onCloseModal()">취소</el-button>
-        {{ selectedItemList }}
+        <!-- {{ selectedItemList }} -->
         <el-button type="primary" @click="() => addSelectedItems(selectedItemList)">추가</el-button>
       </div>
     </div>
@@ -116,9 +116,10 @@ const getAllList = () => {
 // }
 
 const handleChecked = (val, e, item) => {
-  console.log(val)
-  console.log(e)
-  console.log(item)
+  // console.log(val)
+  // console.log(e)
+  // console.log(item)
+  selectedItemList.value.push(item)
 }
 
 const addSelectedItems = (selectedList) => {
